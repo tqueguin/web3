@@ -1,6 +1,7 @@
-import Content from "components/content"
-import Header from "components/header"
-import Total from "components/total"
+import Content from "components/Content/Content"
+import Header from "components/Header/Header"
+import Total from "components/Total/Total"
+import './App.css';
 
 
 const App = () => {

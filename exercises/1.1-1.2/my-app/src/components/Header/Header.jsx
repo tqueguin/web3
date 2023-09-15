@@ -1,5 +1,14 @@
-const Header = (props) => {
-    return <h1>{props.course}</h1>;
-  };
+import logo from "./LOGO HE VINCI.png";
 
-export default Header
+const Header = (props) => {
+  return (
+    <div>
+      <img src={logo} alt="Logo HE VINCI" />
+      <h1>
+        {props.course}
+      </h1>
+    </div>
+  );
+};
+
+export default Header;

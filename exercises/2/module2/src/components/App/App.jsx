@@ -3,10 +3,11 @@ import Button from 'components/Button/Button';
 import Display from 'components/Display/Display';
 
 const App = () => {
-  const [counter, setCounter] = useState(0);
+  const [counter, setCounter] = useState(JSON.parse(localStorage.getItem("counter")));
 
   const changeCount = (delta) => {
     delta = parseInt(delta);
+    localStorage.setItem("counter", JSON.stringify(counter + delta));
     setCounter(counter + delta);
   }
 

@@ -152,6 +152,7 @@ const resolvers = {
         authors.filter((author) => author.name === args.author).length === 0
       ) {
         const author = {
+          id: uuid(),
           name: args.author,
           bookCount: 1,
         };

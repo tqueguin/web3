@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Filter from "../Filter/Filter";
 import PersonForm from "../PersonForm/PersonForm";
 import Persons from "../Persons/Persons";
 import axios from "axios";
 
 const App = () => {
+  const [persons, setPersons] = useState([]);
   const [persons, setPersons] = useState([]);
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
@@ -35,10 +37,25 @@ const App = () => {
         number: newNumber,
       };
 
-      axios.post("http://localhost:3001/persons", personObject).then((response) => {
-        setPersons(persons.concat(personObject));
-        setNewName("");
-        setNewNumber("");
+      personService.create(personObject).then((returnedPerson) => {
+        axios.post("http://localhost:3001/persons", personObject).then((response) => {
+        setPersons(persons.concat(returnedPerson));
+          setNewName("");
+          setNewNumber("");
+      });
+    }
+  };
+
+  const deletePerson = (person) => {
+    if (window.confirm("Do you really want to delete?")) {
+      personService
+        .deleteOne(person.id)
+        .then(() => {
+          console.log(persons.filter((listItem) => listItem.id !== person.id));
+          setPersons(persons.filter((listItem) => listItem.id !== person.id))
+        }
+          
+        );
       });
     }
   };
@@ -62,10 +79,21 @@ const App = () => {
         nameSearch={nameSearch}
         handleNameSearchChange={handleNameSearchChange}
       />
+      <Filter
+        nameSearch={nameSearch}
+        handleNameSearchChange={handleNameSearchChange}
+      />
 
       <h2>Add new</h2>
       <PersonForm
         addNote={addNote}
+        newName={newName}
+        handleNameChange={handleNameChange}
+        newNumber={newNumber}
+        handleNumberChange={handleNumberChange}
+      />
+      <PersonForm
+        addPerson={addPerson}
         newName={newName}
         handleNameChange={handleNameChange}
         newNumber={newNumber}

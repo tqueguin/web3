@@ -1,12 +1,21 @@
-const Persons = ({persons, nameSearch}) => {
-    return(      persons.filter((person) => person.name.toLowerCase().includes(nameSearch.toLowerCase()))
-        .map((person) => {
-          return (
-            <p key={person.id}>
-              {person.name} {person.number}
-            </p>
-          );
-        }));
-}
+const Persons = ({ persons, nameSearch, removePerson }) => {
+  return persons
+    .filter((person) =>
+      person.name.toLowerCase().includes(nameSearch.toLowerCase())
+    )
+    .map((person) => {
+      const handleDelete = e => {
+        e.preventDefault();
+        removePerson(person)
+      }
+
+      return (
+        <div key={person.id}>
+          {person.name} {person.number}
+          <button onClick={handleDelete}>Delete</button>
+        </div>
+      );
+    });
+};
 
 export default Persons;
